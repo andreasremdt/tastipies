@@ -1,12 +1,22 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import NavBar from "./components/NavBar";
+import HomePage from "./components/HomePage";
+import RecipeList from "./components/RecipeList";
 import "./styles.scss";
+import { Router } from "@reach/router";
 
-class App extends React.Component {
-  render() {
-    return <NavBar />;
-  }
-}
+const App = () => {
+  return (
+    <React.Fragment>
+      <NavBar />
 
-ReactDOM.render(<App />, document.getElementById("root"));
+      <Router>
+        <HomePage path="/" />
+        <RecipeList path="/recipes" />
+      </Router>
+    </React.Fragment>
+  );
+};
+
+render(<App />, document.getElementById("root"));

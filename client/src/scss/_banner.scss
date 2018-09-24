@@ -1,0 +1,20 @@
+.page-banner {
+  background-color: $primary-color;
+  background-image: repeating-linear-gradient(
+    to right,
+    $primary-color 5px,
+    darken($primary-color, 3%) 10px
+  );
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-family: $font-sans-serif;
+    font-size: 2.3rem;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 3px;
+  }
+}

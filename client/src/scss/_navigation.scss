@@ -1,9 +1,9 @@
 .navigation {
+  font-family: $font-sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 8rem;
-  font-family: $font-sans-serif;
 
   .title {
     font-family: $font-cursive;
@@ -38,7 +38,8 @@
         color: darken($dark-gray, 10%);
 
         &:hover,
-        &:focus {
+        &:focus,
+        &.active {
           color: $primary-color;
         }
       }
@@ -54,6 +55,7 @@
       background-color: black;
       border-radius: 4px;
       display: none;
+      z-index: 10;
 
       &::before {
         content: "";
