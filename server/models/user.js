@@ -49,16 +49,10 @@ var userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
-  active: {
-    type: Boolean,
-    default: true
-  },
-  role: {
-    type: String,
-    enum: ['student', 'administrator', 'teacher'],
-    required: true,
-    default: 'student'
-  }
+  _recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe'
+  }]
 });
 
 module.exports = User = mongoose.model('User', userSchema);

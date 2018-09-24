@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var { ObjectId } = require('mongodb');
-var User = require('../models/User');
+var User = require('../models/user');
 
 require('../database/connect');
 
