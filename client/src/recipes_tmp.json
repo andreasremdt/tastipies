@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "23efw3eg54rtdf",
+    "title": "Salad Nicoise",
+    "author": "John Snow",
+    "duration": 5,
+    "thumbnail": "https://images.unsplash.com/photo-1534237863411-31a53eecfc7e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cc6196d1735ef71291dca7bef71f32cd&auto=format&fit=crop&w=1731&q=80"
+  },
+  {
+    "_id": "234wfds23qws",
+    "title": "Grilled Beaf Steak",
+    "author": "Eva Longhorn",
+    "duration": 26,
+    "thumbnail": "https://images.unsplash.com/photo-1532597144951-3237ed98ab3a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f22f273fc7c7b2434ccd9231c15ade1b&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "_id": "wsa12423",
+    "title": "Tiger Prawns Roasted",
+    "author": "Jane Smith",
+    "duration": 25,
+    "thumbnail": "https://images.unsplash.com/photo-1532597311687-5c2dc87fff52?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=5f766ceea9ba1bd2750910e70a94f91e&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "_id": "23efw3eg54rtdfwas",
+    "title": "Korean Soup",
+    "author": "Martha Rosevelt",
+    "duration": 12,
+    "thumbnail": "https://images.unsplash.com/photo-1534939561126-855b8675edd7?ixlib=rb-0.3.5&s=c59f25efe342c364b6ce883c93a516cf&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "_id": "23efw3eg54rtdfss",
+    "title": "Roasted Aubergines",
+    "author": "John Snow",
+    "duration": 55,
+    "thumbnail": "https://images.unsplash.com/photo-1521988666755-4f01e495a195?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d39acf6af8f7f60987668eee9b60e723&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "_id": "aycvds",
+    "title": "Indian Mixed Rice",
+    "author": "Greg Williams",
+    "duration": 45,
+    "thumbnail": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2cba1f50db65c7320834e1a1a7bfba69&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "_id": "124e2343",
+    "title": "Black Red Cake",
+    "author": "Sarah Hoffner",
+    "duration": 5,
+    "thumbnail": "https://images.unsplash.com/photo-1535141192574-5d4897c12636?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=17510bc40e18b07bffa2976c18a15e80&auto=format&fit=crop&w=500&q=60"
+  },
+  {
+    "_id": "23wersdfxcves",
+    "title": "Fresh Spaghetti with Tuna",
+    "author": "Administartor",
+    "duration": 13,
+    "thumbnail": "https://images.unsplash.com/photo-1535847984903-81b118ea0af2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0ad402c2e12055fde003e7be92905d37&auto=format&fit=crop&w=500&q=60"
+  }
+]
