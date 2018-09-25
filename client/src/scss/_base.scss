@@ -1,0 +1,15 @@
+p {
+  font-family: $font-serif;
+  line-height: $line-height;
+  color: $mid-gray;
+}
+
+p a {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}

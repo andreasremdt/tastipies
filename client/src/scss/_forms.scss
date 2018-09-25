@@ -1,0 +1,28 @@
+.form-wrapper {
+  max-width: 35rem;
+  border: 1px solid $medium-light-gray;
+  margin: auto;
+  padding: 3rem;
+  background-color: $light-gray;
+
+  .intro {
+    margin: 0 0 1.5rem;
+    font-style: italic;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-error {
+  color: $primary-color;
+  margin: 0.3rem 0 0;
+  font-style: italic;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
