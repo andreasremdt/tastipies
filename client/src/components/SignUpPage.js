@@ -70,7 +70,7 @@ class SignUpPage extends React.Component {
 
             <div className="form-group">
               <label htmlFor="name" className="form-label">
-                Your name
+                Your name <span className="asterisk">*</span>
               </label>
               <input
                 type="text"
@@ -91,7 +91,7 @@ class SignUpPage extends React.Component {
 
             <div className="form-group">
               <label htmlFor="email" className="form-label">
-                Email address
+                Email address <span className="asterisk">*</span>
               </label>
               <input
                 type="email"
@@ -113,7 +113,7 @@ class SignUpPage extends React.Component {
 
             <div className="form-group">
               <label htmlFor="password" className="form-label">
-                Password
+                Password <span className="asterisk">*</span>
               </label>
               <input
                 type="password"

@@ -56,12 +56,12 @@ class ForgotPasswordPage extends React.Component {
             onSubmit={this.handleFormSubmit}
           >
             <p className="intro">
-              So you forgot your password? Don't worry, enter your email below
-              and we'll send you a link to reset it.
+              So you forgot your password? Don&apos;t worry, enter your email
+              below and we&apos;ll send you a link to reset it.
             </p>
             <div className="form-group">
               <label htmlFor="email" className="form-label">
-                Email address
+                Email address <span className="asterisk">*</span>
               </label>
               <input
                 type="email"

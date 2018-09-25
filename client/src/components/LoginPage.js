@@ -61,12 +61,12 @@ class LoginPage extends React.Component {
           >
             <p className="intro">
               Welcome back. Please enter your email address and password to
-              login. <Link to="/register">Sign up</Link> now if you don't have
-              an account yet.
+              login. <Link to="/register">Sign up</Link> now if you don&apos;t
+              have an account yet.
             </p>
             <div className="form-group">
               <label htmlFor="email" className="form-label">
-                Email address
+                Email address <span className="asterisk">*</span>
               </label>
               <input
                 type="email"
@@ -88,7 +88,7 @@ class LoginPage extends React.Component {
 
             <div className="form-group">
               <label htmlFor="password" className="form-label">
-                Password
+                Password <span className="asterisk">*</span>
               </label>
               <input
                 type="password"

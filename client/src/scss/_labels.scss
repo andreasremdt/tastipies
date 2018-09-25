@@ -2,6 +2,15 @@
   display: block;
   font-family: $font-sans-serif;
   color: $dark-gray;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 90%;
+  text-transform: uppercase;
   margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+
+  .asterisk {
+    color: $primary-color;
+    font-size: 1.6rem;
+    line-height: 0;
+  }
 }

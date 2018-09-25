@@ -1,12 +1,14 @@
 .form-control {
   width: 100%;
   margin: 0;
-  padding: 1rem;
+  padding: 0 1rem;
   outline: none;
   border: 1px solid $medium-light-gray;
   color: inherit;
   font-family: $font-sans-serif;
   font-weight: 500;
+  background-color: white;
+  height: 45px;
 
   &:hover {
     border-color: darken($medium-light-gray, 7%);
