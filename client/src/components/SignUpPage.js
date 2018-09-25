@@ -1,6 +1,7 @@
 import React from "react";
 import Banner from "./Banner";
 import { Link } from "@reach/router";
+import { hasError, formIsValid } from "../helpers/helpers";
 
 class SignUpPage extends React.Component {
   state = {
@@ -27,7 +28,7 @@ class SignUpPage extends React.Component {
   };
 
   handleValidation = field => {
-    const error = this.hasError(field);
+    const error = hasError(field);
 
     this.setState({
       [field.id]: Object.assign({}, this.state[field.id], {
@@ -45,40 +46,10 @@ class SignUpPage extends React.Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    let hasErrors = false;
-
-    Array.from(event.target.elements).forEach(field => {
-      const error = this.handleValidation(field);
-
-      if (error) hasErrors = true;
-    });
-
-    if (!hasErrors) {
+    if (formIsValid(event.target, this.handleValidation)) {
       console.log("Sending form...");
     }
   };
-
-  hasError(field) {
-    if (field.type === "submit" || field.type === "button") {
-      return;
-    }
-
-    if (field.validity.valid) {
-      return;
-    }
-
-    if (field.validity.valueMissing) {
-      return "Please fill out this field.";
-    }
-
-    if (field.validity.tooShort) {
-      return "Your text is too short, please lengthen it.";
-    }
-
-    if (field.validity.patternMismatch || field.validity.typeMismatch) {
-      return "Please enter a valid email address.";
-    }
-  }
 
   render() {
     return (
