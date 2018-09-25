@@ -53,7 +53,7 @@ const NavBar = () => (
       </li>
       <li>
         <Link to="/register" getProps={isActiveNavLink}>
-          Register
+          Sign Up
         </Link>
       </li>
     </ul>
