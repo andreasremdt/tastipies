@@ -8,6 +8,7 @@ import "./styles.scss";
 import { Router } from "@reach/router";
 import SignUpPage from "./components/SignUpPage";
 import ForgotPasswordPage from "./components/ForgotPasswordPage";
+import SubmitRecipePage from "./components/SubmitRecipePage";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <LoginPage path="/login" />
         <SignUpPage path="/register" />
         <ForgotPasswordPage path="/forgot-password" />
+        <SubmitRecipePage path="/recipes/create" />
       </Router>
     </React.Fragment>
   );
