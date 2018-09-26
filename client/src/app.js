@@ -10,21 +10,40 @@ import SignUpPage from "./components/SignUpPage";
 import ForgotPasswordPage from "./components/ForgotPasswordPage";
 import SubmitRecipePage from "./components/SubmitRecipePage";
 
-const App = () => {
-  return (
-    <React.Fragment>
-      <NavBar />
+class App extends React.Component {
+  state = {
+    isLoggedIn: false
+  };
 
-      <Router>
-        <HomePage path="/" />
-        <RecipeList path="/recipes" />
-        <LoginPage path="/login" />
-        <SignUpPage path="/register" />
-        <ForgotPasswordPage path="/forgot-password" />
-        <SubmitRecipePage path="/recipes/create" />
-      </Router>
-    </React.Fragment>
-  );
-};
+  componentDidMount() {
+    fetch("/api/users")
+      .then(res => {
+        return res.json();
+      })
+      .then(users => {
+        console.log(users);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <NavBar />
+
+        <Router>
+          <HomePage path="/" />
+          <RecipeList path="/recipes" />
+          <LoginPage path="/login" />
+          <SignUpPage path="/register" />
+          <ForgotPasswordPage path="/forgot-password" />
+          <SubmitRecipePage path="/recipes/create" />
+        </Router>
+      </React.Fragment>
+    );
+  }
+}
 
 render(<App />, document.getElementById("root"));

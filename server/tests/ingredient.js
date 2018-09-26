@@ -1,7 +1,7 @@
 var request = require('supertest');
 var _ = require('lodash');
 var { ObjectId } = require('mongodb');
-var app = require('../server/app');
+var app = require('../server');
 var Ingredient = require('../server/models/ingredient');
 var ingredients = require('./seeds/ingredients');
 var mongoose = require('mongoose');

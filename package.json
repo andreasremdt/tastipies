@@ -1,0 +1,67 @@
+{
+  "name": "tastipies",
+  "version": "1.0.0",
+  "description": "React-powered app to manage recipes",
+  "main": "server/server.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
+    "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
+    "lint": "eslint --fix \"src/**/*.{js,jsx}\"",
+    "dev": "parcel client/src/index.html -d client/public",
+    "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha server/tests/*.test.js",
+    "test:watch": "nodemon --exec \"npm run test\"",
+    "start": "nodemon server/server.js",
+    "build": "parcel build client/src/index.html -d client/public"
+  },
+  "author": {
+    "name": "Andreas Remdt",
+    "email": "andreas.remdt@gmail.com",
+    "url": "https://andreasremdt.com"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "mongoose"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreasremdt/tastipies.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andreasremdt/tastipies/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^9.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^5.6.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
+    "node-sass": "^4.9.3",
+    "parcel-bundler": "^1.9.7",
+    "prettier": "^1.14.3",
+    "sass": "^1.14.0",
+    "expect": "^23.6.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
+  },
+  "dependencies": {
+    "@reach/router": "^1.2.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.2.15"
+  }
+}
