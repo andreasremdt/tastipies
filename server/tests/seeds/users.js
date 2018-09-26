@@ -1,21 +1,24 @@
-var { ObjectId } = require('mongodb');
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const tony = new mongoose.Types.ObjectId();
 
-module.exports = [{
-  _id: new ObjectId().toHexString(),
-  name: 'John Doe',
-  email: 'john.doe@gmail.com',
-  password: 'd3ef3wre4e',
-  __v: 0
-}, {
-  _id: new ObjectId().toHexString(),
-  name: 'Jane Smith',
-  email: 'jane@smith.com',
-  password: '2wqere8iuktgf',
-  __v: 0
-}, {
-  _id: new ObjectId().toHexString(),
-  name: 'Tony Stark',
-  email: 'tony@avengers.org',
-  password: 'CapAmericaS%cks',
-  __v: 0
-}];
+module.exports = [
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: "Hulk",
+    email: "hulk@smash.com",
+    password: "GreenLantern"
+  },
+  {
+    _id: tony,
+    name: "Tony Stark",
+    email: "tony.stark@avengers.org",
+    password: "CapAmericaS%cks",
+    _tokens: [
+      {
+        access: "auth",
+        token: jwt.sign({ _id: tony, access: "auth" }, "abc123").toString()
+      }
+    ]
+  }
+];
