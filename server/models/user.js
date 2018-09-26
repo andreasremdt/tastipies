@@ -92,9 +92,31 @@ userSchema.statics.findByToken = function(token) {
   });
 };
 
+userSchema.methods.removeToken = function(token) {
+  return this.updateOne({
+    $pull: {
+      _tokens: { token }
+    }
+  });
+};
+
+userSchema.statics.findByCredentials = function(email, password) {
+  return this.findOne({ email }).then(user => {
+    if (!user) {
+      return Promise.reject("User doesn't exist.");
+    }
+
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (err, res) => {
+        res ? resolve(user) : reject();
+      });
+    });
+  });
+};
+
 userSchema.pre("save", function(next) {
   if (this.isModified("password")) {
-    bcrypt.genSalt(15, (err, salt) => {
+    bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(this.password, salt, (err, hash) => {
         this.password = hash;
 

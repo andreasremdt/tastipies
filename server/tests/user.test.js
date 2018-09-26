@@ -4,19 +4,22 @@ const _ = require("lodash");
 const app = require("../server");
 const User = require("../models/user");
 const userSeeds = require("./seeds/users");
+const expect = require("expect");
 
-beforeEach(() => {
-  return User.deleteMany({}).then(() => {
-    User.insertMany(userSeeds);
-  });
+beforeEach(done => {
+  User.deleteMany({})
+    .then(() => {
+      return User.create(userSeeds);
+    })
+    .then(() => done());
 });
 
-afterAll(done => {
-  mongoose.disconnect(done);
+after(() => {
+  mongoose.disconnect();
 });
 
 describe("GET /api/users", () => {
-  test("it should return an array of users", async () => {
+  it("should return an array of users", async () => {
     const res = await request(app).get("/api/users");
 
     expect(res.statusCode).toBe(200);
@@ -26,7 +29,7 @@ describe("GET /api/users", () => {
 });
 
 describe("GET /api/users/:id", () => {
-  test("it should return a single user", async () => {
+  it("should return a single user", async () => {
     const user = userSeeds[0];
     const res = await request(app).get(`/api/users/${user._id}`);
 
@@ -35,14 +38,14 @@ describe("GET /api/users/:id", () => {
     expect(res.body.email).toBe(user.email);
   });
 
-  test("it should return a 404 if the user doesn't exist", async () => {
+  it("should return a 404 if the user doesn't exist", async () => {
     const id = new mongoose.Types.ObjectId();
     const res = await request(app).get(`/api/users/${id}`);
 
     expect(res.statusCode).toBe(404);
   });
 
-  test("it should return a 400 if the object id is invalid", async () => {
+  it("should return a 400 if the object id is invalid", async () => {
     const id = "234";
     const res = await request(app).get(`/api/users/${id}`);
 
@@ -57,7 +60,7 @@ describe("POST /api/users", () => {
     password: "BaldEagle999"
   };
 
-  test("it should create a new user and return it", async () => {
+  it("should create a new user and return it", async () => {
     const res = await request(app)
       .post("/api/users")
       .send(user);
@@ -66,9 +69,10 @@ describe("POST /api/users", () => {
     expect(res.statusCode).toBe(201);
     expect(res.body).toMatchObject(_.pick(user, ["_id", "email", "name"]));
     expect(query).toMatchObject(_.pick(user, ["_id", "email", "name"]));
+    expect(res.headers["x-auth"]).toBeDefined();
   });
 
-  test("it should return a 400 if data is missing", async () => {
+  it("should return a 400 if data is missing", async () => {
     const res = await request(app)
       .post("/api/users")
       .send(_.omit(user, ["name"]));
@@ -78,7 +82,7 @@ describe("POST /api/users", () => {
     expect(query).toBeNull();
   });
 
-  test("it should return a 400 if the email is a duplicate", async () => {
+  it("should return a 400 if the email is a duplicate", async () => {
     const res = await request(app)
       .post("/api/users")
       .send(_.merge(user, { email: userSeeds[0].email }));
@@ -96,7 +100,7 @@ describe("PATCH /api/users/:id", () => {
     password: "BaldEagle999"
   };
 
-  test("it should update an existing user if authenticated", async () => {
+  it("should update an existing user if authenticated", async () => {
     const user = userSeeds[1];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
@@ -108,7 +112,7 @@ describe("PATCH /api/users/:id", () => {
     expect(query).toMatchObject(update);
   });
 
-  test("it should return a 401 if unauthenticated", async () => {
+  it("should return a 401 if unauthenticated", async () => {
     const user = userSeeds[1];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
@@ -118,7 +122,7 @@ describe("PATCH /api/users/:id", () => {
     expect(res.statusCode).toBe(401);
   });
 
-  test("it should return a 404 if the user doesn't exist", async () => {
+  it("should return a 404 if the user doesn't exist", async () => {
     const id = new mongoose.Types.ObjectId();
     const res = await request(app)
       .patch(`/api/users/${id}`)
@@ -130,7 +134,7 @@ describe("PATCH /api/users/:id", () => {
     expect(query.length).toBe(0);
   });
 
-  test("it should return a 400 if data is missing", async () => {
+  it("should return a 400 if data is missing", async () => {
     const user = userSeeds[1];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
@@ -142,7 +146,7 @@ describe("PATCH /api/users/:id", () => {
     expect(query.length).toBe(0);
   });
 
-  test("it should return a 400 if the object id is invalid", async () => {
+  it("should return a 400 if the object id is invalid", async () => {
     const id = "2245";
     const res = await request(app)
       .patch(`/api/users/${id}`)
@@ -152,7 +156,7 @@ describe("PATCH /api/users/:id", () => {
     expect(res.statusCode).toBe(400);
   });
 
-  test("it should return a 400 if the email is a duplicate", async () => {
+  it("should return a 400 if the email is a duplicate", async () => {
     const user = userSeeds[1];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
@@ -166,7 +170,7 @@ describe("PATCH /api/users/:id", () => {
 });
 
 describe("DELETE /api/users/:id", () => {
-  test("it should delete a user if authenticated", async () => {
+  it("should delete a user if authenticated", async () => {
     const user = userSeeds[1];
     const res = await request(app)
       .delete(`/api/users/${user._id}`)
@@ -179,7 +183,7 @@ describe("DELETE /api/users/:id", () => {
     expect(query).toBeNull();
   });
 
-  test("it should not delete a user if unauthenticated", async () => {
+  it("should return a 401 if unauthenticated", async () => {
     const user = userSeeds[0];
     const res = await request(app).delete(`/api/users/${user._id}`);
     const query = await User.findById(user._id);
@@ -188,7 +192,7 @@ describe("DELETE /api/users/:id", () => {
     expect(query).toMatchObject(_.pick(user, ["_id", "name", "email"]));
   });
 
-  test("it should return a 404 if the user doesn't exist", async () => {
+  it("should return a 404 if the user doesn't exist", async () => {
     const id = new mongoose.Types.ObjectId();
     const res = await request(app)
       .delete(`/api/users/${id}`)
@@ -199,7 +203,7 @@ describe("DELETE /api/users/:id", () => {
     expect(query.length).toBe(userSeeds.length);
   });
 
-  test("it should return a 400 if the object id is invalid", async () => {
+  it("should return a 400 if the object id is invalid", async () => {
     const id = "3423";
     const res = await request(app)
       .delete(`/api/users/${id}`)
