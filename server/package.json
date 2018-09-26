@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "export NODE_ENV=test || SET NODE_ENV=test && jest tests/*.test.js",
-    "test:watch": "nodemon --exec \"npm run test\""
+    "test:watch": "nodemon --exec \"npm run test\"",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.2.15"
   },
