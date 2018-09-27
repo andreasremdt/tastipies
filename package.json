@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "React-powered app to manage recipes",
   "main": "server/server.js",
+  "engines": {
+    "node": "8.11.4"
+  },
   "scripts": {
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
@@ -12,7 +15,7 @@
     "start": "node server/server.js",
     "dev": "",
     "build": "",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "author": {
     "name": "Andreas Remdt",
