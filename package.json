@@ -12,7 +12,7 @@
     "start": "node server/server.js",
     "dev": "",
     "build": "",
-    "heroku-postbuild": "cd client && yarn && yarn run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": {
     "name": "Andreas Remdt",
