@@ -13,6 +13,6 @@ module.exports = express()
   .get("*", (req, res) =>
     res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
   )
-  .listen(process.env.PORT, () =>
-    console.info(`Server is up and running on port ${process.env.PORT}`)
+  .listen(process.env.PORT || 8080, () =>
+    console.info(`Server is up and running on port ${process.env.PORT || 8080}`)
   );
