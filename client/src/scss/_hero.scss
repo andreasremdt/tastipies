@@ -1,0 +1,50 @@
+.hero-unit {
+  --title-size: 5rem;
+  --text-size: 1.7rem;
+  --text-width: 60%;
+
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $dark-gray;
+  background-image: linear-gradient(
+      rgba($dark-gray, 0.3),
+      rgba($dark-gray, 0.8)
+    ),
+    url("/images/hero-background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 0 1rem;
+
+  h1 {
+    color: white;
+    font: normal var(--title-size) / 1 $font-cursive;
+    margin: 0;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  p {
+    color: white;
+    text-transform: uppercase;
+    font: 600 var(--text-size) / 1.5 $font-sans-serif;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+    max-width: var(--text-width);
+  }
+
+  @media screen and (max-width: 800px) {
+    --title-size: 4rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    --text-width: 100%;
+  }
+
+  @media screen and (max-width: 450px) {
+    --title-size: 2.6rem;
+    --text-size: 1.2rem;
+  }
+}
