@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-require("../config/database");
 
 mongoose.Promise = global.Promise;
 mongoose.set("useCreateIndex", true);
