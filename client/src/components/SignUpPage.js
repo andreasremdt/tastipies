@@ -1,6 +1,7 @@
 import React from "react";
 import Banner from "./Banner";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
+import axios from "axios";
 import { hasError, formIsValid } from "../helpers/helpers";
 
 class SignUpPage extends React.Component {
@@ -16,7 +17,8 @@ class SignUpPage extends React.Component {
     password: {
       error: false,
       value: ""
-    }
+    },
+    serverError: null
   };
 
   handleInputChange = event => {
@@ -47,7 +49,22 @@ class SignUpPage extends React.Component {
     event.preventDefault();
 
     if (formIsValid(event.target, this.handleValidation)) {
-      console.log("Sending form...");
+      axios
+        .post("/api/users", {
+          name: this.state.name.value,
+          email: this.state.email.value,
+          password: this.state.password.value
+        })
+        .then(res => {
+          if (res.status === 201) {
+            localStorage.setItem("token", res.headers["x-auth"]);
+            this.props.handleLogin(res.data);
+            navigate("/profile");
+          }
+        })
+        .catch(err => {
+          this.setState({ serverError: err.response.data.message });
+        });
     }
   };
 
@@ -67,6 +84,10 @@ class SignUpPage extends React.Component {
               So you want to create an account? Awesome, please fill out the
               form below to get started.
             </p>
+
+            {this.state.serverError && (
+              <p className="server-error">{this.state.serverError}</p>
+            )}
 
             <div className="form-group">
               <label htmlFor="name" className="form-label">

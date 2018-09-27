@@ -4,4 +4,5 @@ const { isAuthenticated } = require("../helpers");
 
 module.exports = router
   .post("/login", AuthController.login)
-  .post("/logout", isAuthenticated, AuthController.logout);
+  .post("/logout", isAuthenticated, AuthController.logout)
+  .post("/confirm", AuthController.confirm);

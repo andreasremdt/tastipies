@@ -8,8 +8,10 @@ class AuthController {
           res.header("x-auth", token).json(user);
         });
       })
-      .catch(error => {
-        res.status(400).json({ message: "Invalid credentials." });
+      .catch(() => {
+        res
+          .status(400)
+          .json({ message: "Invalid credentials. Please try again." });
       });
   }
 
@@ -21,6 +23,22 @@ class AuthController {
       })
       .catch(() => {
         res.status(400).json({ message: "User could not be logged out." });
+      });
+  }
+
+  static confirm(req, res) {
+    const token = req.header("x-auth");
+
+    User.findByToken(token)
+      .then(user => {
+        if (!user) {
+          return res.send();
+        }
+
+        res.header("x-auth", token).json(user);
+      })
+      .catch(() => {
+        return res.send();
       });
   }
 }

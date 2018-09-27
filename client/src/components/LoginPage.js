@@ -1,6 +1,7 @@
 import React from "react";
 import Banner from "./Banner";
-import { Link } from "@reach/router";
+import axios from "axios";
+import { Link, navigate } from "@reach/router";
 import { hasError, formIsValid } from "../helpers/helpers";
 
 class LoginPage extends React.Component {
@@ -12,14 +13,16 @@ class LoginPage extends React.Component {
     password: {
       error: false,
       value: ""
-    }
+    },
+    serverError: null
   };
 
   handleInputChange = event => {
     this.setState({
       [event.target.id]: Object.assign({}, this.state[event.target.id], {
         value: event.target.value
-      })
+      }),
+      serverError: null
     });
   };
 
@@ -43,7 +46,21 @@ class LoginPage extends React.Component {
     event.preventDefault();
 
     if (formIsValid(event.target, this.handleValidation)) {
-      console.log("Sending form...");
+      axios
+        .post("/auth/login", {
+          email: this.state.email.value,
+          password: this.state.password.value
+        })
+        .then(res => {
+          if (res.status === 200) {
+            localStorage.setItem("token", res.headers["x-auth"]);
+            this.props.handleLogin(res.data);
+            navigate("/profile");
+          }
+        })
+        .catch(err => {
+          this.setState({ serverError: err.response.data.message });
+        });
     }
   };
 
@@ -64,6 +81,11 @@ class LoginPage extends React.Component {
               login. <Link to="/register">Sign up</Link> now if you don&apos;t
               have an account yet.
             </p>
+
+            {this.state.serverError && (
+              <p className="server-error">{this.state.serverError}</p>
+            )}
+
             <div className="form-group">
               <label htmlFor="email" className="form-label">
                 Email address <span className="asterisk">*</span>
