@@ -7,11 +7,11 @@
     "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"src/**/*.{js,jsx,css,json}\"",
     "lint": "eslint --fix \"src/**/*.{js,jsx}\"",
-    "dev": "parcel client/src/index.html -d client/public",
     "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha server/tests/*.test.js",
     "test:watch": "nodemon --exec \"npm run test\"",
     "start": "nodemon server/server.js",
-    "build": "parcel build client/src/index.html -d client/public"
+    "dev": "",
+    "build": ""
   },
   "author": {
     "name": "Andreas Remdt",
