@@ -1,10 +1,10 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
+const expect = require("expect");
 const _ = require("lodash");
 const app = require("../server");
 const User = require("../models/user");
 const userSeeds = require("./seeds/users");
-const expect = require("expect");
 
 beforeEach(done => {
   User.deleteMany({})

@@ -1,36 +1,30 @@
-var _ = require("lodash");
-var User = require("../models/user");
-
-require("../database/connect");
+const _ = require("lodash");
+const User = require("../models/user");
+const { handleError } = require("../helpers");
 
 class UserController {
   static index(req, res) {
     User.find({})
       .then(users => res.json(users))
-      .catch(error =>
-        res.status(500).json({ message: "Could not display users.", error })
-      );
+      .catch(err => res.status(500).json(err));
   }
 
   static show(req, res) {
     User.findById(req.params.id)
       .then(user => {
-        if (!user) {
-          res.status(404).json({ message: "The user does not exist." });
-        } else {
-          res.json(user);
-        }
+        if (!user) return res.status(404).send();
+
+        res.json(user);
       })
-      .catch(error =>
-        res.status(500).json({ message: "User could not be retrieved.", error })
-      );
+      .catch(err => res.status(500).json(err));
   }
 
   static store(req, res) {
-    const data = _.merge(_.pick(req.body, ["name", "email", "password"]), {
+    const body = _.merge(_.pick(req.body, Object.keys(User.schema.paths)), {
       _created: Date.now()
     });
-    const user = new User(data);
+
+    const user = new User(body);
 
     user
       .save()
@@ -43,63 +37,33 @@ class UserController {
           .header("x-auth", token)
           .json(user);
       })
-      .catch(error => {
-        if (error.code == 11000) {
-          res.status(400).json({
-            message:
-              "The email address is already taken. Please choose another email address or log in."
-          });
-        } else {
-          res.status(400).json({
-            message: "Validation has failed. Please correct your input.",
-            error: error.errors
-          });
-        }
-      });
+      .catch(err => handleError(err, res));
   }
 
   static update(req, res) {
-    const data = _.pick(req.body, ["name", "email", "password"]);
+    const changes = _.pick(req.body, Object.keys(User.schema.paths));
 
     User.findByIdAndUpdate(
       req.params.id,
-      { $set: data },
+      { $set: changes },
       { runValidators: true }
     )
       .then(user => {
-        if (!user) {
-          res.status(404).json({ message: "The user does not exist." });
-        } else {
-          res.json(user);
-        }
+        if (!user) return res.status(404).send();
+
+        res.json(user);
       })
-      .catch(error => {
-        if (error.code == 11000) {
-          res.status(400).json({
-            message:
-              "The email address is already taken. Please choose another email address."
-          });
-        } else {
-          res.status(400).json({
-            message: "The validation has failed. Please correct your input.",
-            error: error.errors
-          });
-        }
-      });
+      .catch(err => handleError(err, res));
   }
 
   static destroy(req, res) {
     User.findByIdAndRemove(req.params.id)
       .then(user => {
-        if (!user) {
-          res.status(404).json({ message: "The user does not exist." });
-        } else {
-          res.json(user);
-        }
+        if (!user) return res.status(404).send();
+
+        res.json(user);
       })
-      .catch(error =>
-        res.status(500).json({ message: "User could not be deleted.", error })
-      );
+      .catch(err => res.status(500).json(err));
   }
 }
 
