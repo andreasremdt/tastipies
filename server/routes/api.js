@@ -21,7 +21,7 @@ module.exports = router
   )
 
   .get("/recipes", RecipeController.index)
-  .post("/recipes", RecipeController.store)
+  .post("/recipes", isAuthenticated, RecipeController.store)
   .get("/recipes/:id", handleObjectIdValidation, RecipeController.show)
   .patch(
     "/recipes/:id",
