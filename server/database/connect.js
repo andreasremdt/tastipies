@@ -1,10 +1,11 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const { getDatabaseUri } = require("./config");
 
 mongoose.Promise = global.Promise;
 mongoose.set("useCreateIndex", true);
 
 mongoose.connect(
-  process.env.MONGODB_URI,
+  getDatabaseUri(),
   {
     useNewUrlParser: true
   }

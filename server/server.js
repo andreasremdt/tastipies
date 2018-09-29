@@ -4,6 +4,8 @@ const path = require("path");
 const apiRouter = require("./routes/api");
 const authRouter = require("./routes/auth");
 
+require("./database/connect");
+
 module.exports = express()
   .set("x-powered-by", false)
   .use(bodyParser.json())
