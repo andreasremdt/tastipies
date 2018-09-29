@@ -9,7 +9,7 @@ const userSeeds = require("./seeds/users");
 beforeEach(done => {
   User.deleteMany({})
     .then(() => {
-      return User.create(userSeeds);
+      return User.create([userSeeds[0], userSeeds[1]]);
     })
     .then(() => done());
 });
@@ -23,7 +23,7 @@ describe("GET /api/users", () => {
     const res = await request(app).get("/api/users");
 
     expect(res.statusCode).toBe(200);
-    expect(res.body.length).toBe(userSeeds.length);
+    expect(res.body.length).toBe(2);
     expect(res.body).toMatchObject(_.pick(userSeeds, ["_id", "name", "email"]));
   });
 });
@@ -89,31 +89,30 @@ describe("POST /api/users", () => {
     const query = await User.find({});
 
     expect(res.statusCode).toBe(400);
-    expect(query.length).toBe(userSeeds.length);
+    expect(query.length).toBe(2);
   });
 });
 
 describe("PATCH /api/users/:id", () => {
   const update = {
-    name: "Captain America",
-    email: "captain@avengers.org",
-    password: "BaldEagle999"
+    name: "New Avenger",
+    email: "new@avengers.com"
   };
 
   it("should update an existing user if authenticated", async () => {
-    const user = userSeeds[1];
+    const user = userSeeds[0];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
-      .set("x-auth", user._tokens[0].token)
+      .set("x-auth", userSeeds[1]._tokens[0].token)
       .send(update);
     const query = await User.findOne({ name: update.name });
 
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(204);
     expect(query).toMatchObject(update);
   });
 
   it("should return a 401 if unauthenticated", async () => {
-    const user = userSeeds[1];
+    const user = userSeeds[0];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
       .send(update);
@@ -135,10 +134,10 @@ describe("PATCH /api/users/:id", () => {
   });
 
   it("should return a 400 if data is missing", async () => {
-    const user = userSeeds[1];
+    const user = userSeeds[0];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
-      .set("x-auth", user._tokens[0].token)
+      .set("x-auth", userSeeds[1]._tokens[0].token)
       .send({ name: "" });
     const query = await User.find({ email: update.email });
 
@@ -157,11 +156,11 @@ describe("PATCH /api/users/:id", () => {
   });
 
   it("should return a 400 if the email is a duplicate", async () => {
-    const user = userSeeds[1];
+    const user = userSeeds[0];
     const res = await request(app)
       .patch(`/api/users/${user._id}`)
-      .set("x-auth", user._tokens[0].token)
-      .send({ email: userSeeds[0].email });
+      .set("x-auth", userSeeds[1]._tokens[0].token)
+      .send({ email: userSeeds[1].email });
     const query = await User.find({ email: userSeeds[0].email });
 
     expect(res.statusCode).toBe(400);
@@ -171,15 +170,13 @@ describe("PATCH /api/users/:id", () => {
 
 describe("DELETE /api/users/:id", () => {
   it("should delete a user if authenticated", async () => {
-    const user = userSeeds[1];
+    const user = userSeeds[0];
     const res = await request(app)
       .delete(`/api/users/${user._id}`)
-      .set("x-auth", user._tokens[0].token);
+      .set("x-auth", userSeeds[1]._tokens[0].token);
     const query = await User.findById(user._id);
 
-    expect(res.statusCode).toBe(200);
-    expect(res.body.email).toBe(user.email);
-    expect(res.body._id).toBe(user._id.toHexString());
+    expect(res.statusCode).toBe(204);
     expect(query).toBeNull();
   });
 
@@ -200,7 +197,7 @@ describe("DELETE /api/users/:id", () => {
     const query = await User.find({});
 
     expect(res.statusCode).toBe(404);
-    expect(query.length).toBe(userSeeds.length);
+    expect(query.length).toBe(2);
   });
 
   it("should return a 400 if the object id is invalid", async () => {
@@ -211,6 +208,6 @@ describe("DELETE /api/users/:id", () => {
     const query = await User.find({});
 
     expect(res.statusCode).toBe(400);
-    expect(query.length).toBe(userSeeds.length);
+    expect(query.length).toBe(2);
   });
 });

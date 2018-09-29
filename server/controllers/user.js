@@ -51,7 +51,7 @@ class UserController {
       .then(user => {
         if (!user) return res.status(404).send();
 
-        res.json(user);
+        res.status(204).send();
       })
       .catch(err => handleError(err, res));
   }
@@ -61,7 +61,7 @@ class UserController {
       .then(user => {
         if (!user) return res.status(404).send();
 
-        res.json(user);
+        res.status(204).send();
       })
       .catch(err => res.status(500).json(err));
   }

@@ -20,5 +20,11 @@ module.exports = [
         token: jwt.sign({ _id: tony, access: "auth" }, "abc123").toString()
       }
     ]
+  },
+  {
+    _id: new mongoose.Types.ObjectId(),
+    name: "Captain America",
+    email: "captain@avengers.org",
+    password: "BaldEagle999"
   }
 ];
